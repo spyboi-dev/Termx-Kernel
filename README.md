@@ -1,7 +1,26 @@
-Kernarium
+Termx-Kernel
 ===
 
+A fork of [imxieyi/Kernarium](https://github.com/imxieyi/Kernarium).
+It builds only the Linux kernel and the runtime framework
+(`KRuntime_6_18_4K`); it builds and releases no app.
+
 Run a real Linux kernel natively on iOS, through the magic of [User-mode Linux](https://en.wikipedia.org/wiki/User-mode_Linux).
+
+## What this fork adds
+
+- **Localhost proxy.** A service on guest 127.0.0.1 is reachable at
+  the host's 127.0.0.1, with no per-port configuration. The guest
+  half is `tools/localhost-bridge/tx-vsock-bridge.c` (a systemd
+  service on vsock 5999, plus a port-0 control request that lists
+  the guest's listening TCP ports); the host half is
+  `kernarium::LocalhostProxy` in `Kernarium/Runtime/`, which uses
+  only the runtime API's `connect_vsock` entry, so it needs no API
+  version bump. Any app built on this runtime can use it.
+- **Persistent guest data disk.** The boot-ramdisk `/init` formats
+  the overlay upper device only when it holds no ext4 filesystem
+  yet, so anything installed or saved in a session survives a
+  reboot, instead of being wiped on every boot.
 
 ## Apps
 
@@ -19,6 +38,10 @@ Specifically, your app allows users to replicate Android operating systems on iO
 ```
 
 An Android emulator app built on the Kernarium runtime is **no longer** available for download in App Store. Source code is available under [`Andarium/`](/Andarium/).
+
+This fork does not build or release Andarium (or any app); the
+source stays in the tree for reference. The sideloading notes below
+are upstream's.
 
 #### Sideloading
 
