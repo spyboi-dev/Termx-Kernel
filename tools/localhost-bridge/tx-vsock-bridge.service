@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+[Unit]
+Description=Localhost bridge (vsock to guest loopback)
+Documentation=https://github.com/spyboi-dev/Termx-Kernel
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/tx-vsock-bridge
+Restart=always
+RestartSec=2
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
