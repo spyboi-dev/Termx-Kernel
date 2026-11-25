@@ -69,6 +69,8 @@ add_library(KernariumRuntime SHARED
     KernariumHostFeatures.hpp
     KernariumIdentity.hpp
     KernariumKeyWake.hpp
+    KernariumLocalhostProxy.cpp
+    KernariumLocalhostProxy.hpp
     KernariumMemoryPressure.hpp
     KernariumRestartLoop.hpp
     KernariumRuntime.h
@@ -209,7 +211,9 @@ set_target_properties(KernariumRuntime PROPERTIES
     MACOSX_FRAMEWORK_BUNDLE_VERSION "${_kernarium_runtime_bundle_version}"
     MACOSX_FRAMEWORK_IDENTIFIER
         "com.imxieyi.${_kernarium_runtime_bundle_component}"
-    PUBLIC_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/KernariumRuntime.h"
+    PUBLIC_HEADER
+        "${CMAKE_CURRENT_SOURCE_DIR}/KernariumRuntime.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/KernariumLocalhostProxy.hpp"
     XCODE_ATTRIBUTE_DEFINES_MODULE YES
     XCODE_ATTRIBUTE_PRODUCT_MODULE_NAME
         "${KERNARIUM_RUNTIME_FRAMEWORK_NAME}")
