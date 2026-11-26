@@ -314,7 +314,10 @@ foreach(FIRST_PARTY_SCOPE IN ITEMS
 endforeach()
 list(REMOVE_DUPLICATES C_SOURCES)
 set(ALLOWED_C_SOURCES
-    "${SOURCE_ROOT}/tests/consumer/apple/main.c")
+    "${SOURCE_ROOT}/tests/consumer/apple/main.c"
+    # The localhost bridge is guest code, built by the guest image
+    # build with a Linux cross-compiler, not into the host project.
+    "${SOURCE_ROOT}/tools/localhost-bridge/tx-vsock-bridge.c")
 foreach(PATH IN LISTS C_SOURCES)
     if(PATH IN_LIST ALLOWED_C_SOURCES)
         # The installed-package acceptance is a genuine C consumer and is
