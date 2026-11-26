@@ -211,9 +211,12 @@ set_target_properties(KernariumRuntime PROPERTIES
     MACOSX_FRAMEWORK_BUNDLE_VERSION "${_kernarium_runtime_bundle_version}"
     MACOSX_FRAMEWORK_IDENTIFIER
         "com.imxieyi.${_kernarium_runtime_bundle_component}"
+    # PUBLIC_HEADER takes one value per property in set_target_properties,
+    # so the two headers are one semicolon-joined argument: two separate
+    # values made the property list odd and configure failed with
+    # "set_target_properties called with incorrect number of arguments".
     PUBLIC_HEADER
-        "${CMAKE_CURRENT_SOURCE_DIR}/KernariumRuntime.h"
-        "${CMAKE_CURRENT_SOURCE_DIR}/KernariumLocalhostProxy.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/KernariumRuntime.h;${CMAKE_CURRENT_SOURCE_DIR}/KernariumLocalhostProxy.hpp"
     XCODE_ATTRIBUTE_DEFINES_MODULE YES
     XCODE_ATTRIBUTE_PRODUCT_MODULE_NAME
         "${KERNARIUM_RUNTIME_FRAMEWORK_NAME}")
